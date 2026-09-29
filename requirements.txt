@@ -45,10 +45,8 @@ pycparser==3.0
 pydantic==2.13.4
 pydantic_core==2.46.4
 PyJWT==2.13.0
-pypiwin32==223
 python-dotenv==1.2.2
 pyttsx3==2.99
-pywin32==312
 regex==2026.5.9
 reportlab==5.0.0
 requests==2.34.2
