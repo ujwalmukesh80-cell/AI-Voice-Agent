@@ -1,0 +1,111 @@
+[
+    {
+        "id": 1,
+        "type": "Apartment",
+        "city": "Hyderabad",
+        "area": "Kondapur",
+        "bhk": "2BHK",
+        "price": 4800000,
+        "status": "Available",
+        "builder": "Prestige",
+        "parking": "Covered Parking",
+        "sqft": 1250,
+        "amenities": [
+            "Swimming Pool",
+            "Gym",
+            "Club House",
+            "Children Park"
+        ]
+    },
+    {
+        "id": 2,
+        "type": "Villa",
+        "city": "Hyderabad",
+        "area": "Gachibowli",
+        "bhk": "4BHK",
+        "price": 15000000,
+        "status": "Available",
+        "builder": "My Home",
+        "parking": "Covered Parking",
+        "sqft": 3500,
+        "amenities": [
+            "Private Garden",
+            "Club House",
+            "Gym",
+            "Swimming Pool"
+        ]
+    },
+    {
+        "id": 3,
+        "type": "Plot",
+        "city": "Hyderabad",
+        "area": "Shamshabad",
+        "bhk": "",
+        "price": 2200000,
+        "status": "Available",
+        "builder": "HMDA",
+        "parking": "N/A",
+        "sqft": 1800,
+        "amenities": [
+            "Wide Roads",
+            "Street Lights",
+            "Drainage"
+        ]
+    },
+    {
+        "id": 4,
+        "type": "Apartment",
+        "city": "Bangalore",
+        "area": "Whitefield",
+        "bhk": "2BHK",
+        "price": 6200000,
+        "status": "Available",
+        "builder": "Brigade",
+        "parking": "Covered Parking",
+        "sqft": 1300,
+        "amenities": [
+            "Club House",
+            "Gym",
+            "Jogging Track"
+        ]
+    },
+    {
+        "id": 5,
+        "type": "land",
+        "city": "ymg",
+        "area": "knl",
+        "bhk": "4",
+        "price": 100000,
+        "status": "Available"
+    },
+    {
+        "id": 6,
+        "type": "land",
+        "city": "ymg",
+        "area": "knl",
+        "bhk": "4",
+        "price": 5,
+        "status": "Available",
+        "image": "WhatsApp_Image_2026-06-05_at_1.34.18_PM.jpeg"
+    },
+    {
+        "id": 7,
+        "type": "land",
+        "city": "ymg",
+        "area": "knl",
+        "bhk": "4",
+        "price": 5,
+        "status": "Sold",
+        "image": "WhatsApp_Image_2026-06-05_at_1.05.57_PM.jpeg"
+    },
+    {
+        "id": 8,
+        "type": "land",
+        "city": "ymgggg",
+        "area": "knl",
+        "bhk": "4",
+        "price": 5,
+        "status": "Sold",
+        "image": "WhatsApp_Image_2026-06-05_at_1.03.36_PM.jpeg"
+    }
+]

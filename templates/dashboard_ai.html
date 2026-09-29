@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Dashboard</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:#f5f5f5;
+            padding:30px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            margin:15px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,.2);
+        }
+
+        h1{
+            color:#1e88e5;
+        }
+
+        button{
+            padding:10px 20px;
+            background:#1e88e5;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        td,th{
+            border:1px solid #ddd;
+            padding:10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>🏠 AI Real Estate Dashboard</h1>
+
+<div class="card">
+
+<h2>Customer Leads</h2>
+
+<table id="leadTable">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Property</th>
+</tr>
+
+</table>
+
+</div>
+
+<script>
+
+fetch("/api/leads")
+.then(response=>response.json())
+.then(data=>{
+
+let table=document.getElementById("leadTable");
+
+data.forEach(lead=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${lead.id}</td>
+
+<td>${lead.name}</td>
+
+<td>${lead.phone}</td>
+
+<td>${lead.property}</td>
+
+</tr>
+
+`;
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

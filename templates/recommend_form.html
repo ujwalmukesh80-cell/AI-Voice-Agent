@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Recommendation</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Property Recommendation</h1>
+
+<form method="POST">
+
+<input
+type="text"
+name="city"
+placeholder="City">
+
+<br><br>
+
+<input
+type="text"
+name="area"
+placeholder="Area">
+
+<br><br>
+
+<input
+type="text"
+name="type"
+placeholder="Property Type">
+
+<br><br>
+
+<input
+type="text"
+name="bhk"
+placeholder="BHK">
+
+<br><br>
+
+<input
+type="number"
+name="price"
+placeholder="Maximum Budget">
+
+<br><br>
+
+<button type="submit">
+
+Recommend Property
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

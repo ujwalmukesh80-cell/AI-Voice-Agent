@@ -1,0 +1,31 @@
+<h2>AI Call Logs</h2>
+
+<table border="1">
+
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Requirement</th>
+<th>Property</th>
+<th>Time</th>
+</tr>
+
+{% for call in logs %}
+
+<tr>
+
+<td>{{call.name}}</td>
+
+<td>{{call.phone}}</td>
+
+<td>{{call.requirement}}</td>
+
+<td>{{call.property}}</td>
+
+<td>{{call.time}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

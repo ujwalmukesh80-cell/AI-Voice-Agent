@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Add Lead</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>➕ Add New Lead</h1>
+
+<a href="/leads">⬅ Back to Leads</a>
+
+<br><br>
+
+<form method="POST">
+
+<label>Name</label><br>
+<input type="text" name="name" required>
+
+<br><br>
+
+<label>Phone</label><br>
+<input type="text" name="phone" required>
+
+<br><br>
+
+<label>Email</label><br>
+<input type="email" name="email" required>
+
+<br><br>
+
+<label>Interested Property</label><br>
+<input type="text" name="interested_property" required>
+
+<br><br>
+
+<label>Status</label><br>
+
+<select name="status">
+
+<option>New</option>
+<option>Interested</option>
+<option>Visited</option>
+<option>Booked</option>
+<option>Rejected</option>
+
+</select>
+
+<br><br>
+
+<button type="submit">
+
+Save Lead
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

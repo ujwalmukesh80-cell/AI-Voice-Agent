@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Chat Assistant</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 AI Property Assistant</h1>
+
+<form method="POST">
+
+<textarea
+name="message"
+rows="4"
+cols="50"
+placeholder="Ask anything about properties..."></textarea>
+
+<br><br>
+
+<button type="submit">
+Ask AI
+</button>
+
+</form>
+
+<br>
+
+{% if answer %}
+
+<h2>Response</h2>
+
+<pre>{{ answer }}</pre>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>

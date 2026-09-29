@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Property</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Add Property</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input type="text" name="type" placeholder="Property Type" required><br><br>
+
+<input type="text" name="city" placeholder="City" required><br><br>
+
+<input type="text" name="area" placeholder="Area" required><br><br>
+
+<input type="text" name="bhk" placeholder="BHK"><br><br>
+
+<input type="number" name="price" placeholder="Price" required><br><br>
+
+<select name="status">
+    <option value="Available">Available</option>
+    <option value="Sold">Sold</option>
+</select>
+
+<br><br>
+
+<label>Property Image</label><br>
+
+<input
+type="file"
+name="image"
+accept="image/*">
+
+<br><br>
+
+<button type="submit">
+    Add Property
+</button>
+
+</form>
+
+<br>
+
+<a href="/properties">⬅ Back to Properties</a>
+
+</div>
+
+</body>
+
+</html>

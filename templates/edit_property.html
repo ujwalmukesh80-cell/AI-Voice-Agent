@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Property</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>✏ Edit Property</h1>
+
+    <a href="/properties">⬅ Back to Properties</a>
+
+    <br><br>
+
+    <form method="POST">
+
+        <input type="text"
+               name="type"
+               value="{{ property.type }}"
+               required>
+
+        <br><br>
+
+        <input type="text"
+               name="city"
+               value="{{ property.city }}"
+               required>
+
+        <br><br>
+
+        <input type="text"
+               name="area"
+               value="{{ property.area }}"
+               required>
+
+        <br><br>
+
+        <input type="text"
+               name="bhk"
+               value="{{ property.bhk }}">
+
+        <br><br>
+
+        <input type="number"
+               name="price"
+               value="{{ property.price }}"
+               required>
+
+        <br><br>
+
+        <select name="status">
+
+            <option value="Available"
+                {% if property.status == "Available" %}selected{% endif %}>
+                Available
+            </option>
+
+            <option value="Sold"
+                {% if property.status == "Sold" %}selected{% endif %}>
+                Sold
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            💾 Update Property
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

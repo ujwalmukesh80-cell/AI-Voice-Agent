@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Lead</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✏ Edit Lead</h1>
+
+<a href="/leads">⬅ Back</a>
+
+<br><br>
+
+<form method="POST">
+
+<label>Name</label><br>
+<input type="text" name="name"
+value="{{ lead['name'] }}" required>
+
+<br><br>
+
+<label>Phone</label><br>
+<input type="text" name="phone"
+value="{{ lead['phone'] }}" required>
+
+<br><br>
+
+<label>Email</label><br>
+<input type="email" name="email"
+value="{{ lead['email'] }}" required>
+
+<br><br>
+
+<label>Interested Property</label><br>
+<input type="text"
+name="interested_property"
+value="{{ lead['interested_property'] }}"
+required>
+
+<br><br>
+
+<label>Status</label><br>
+
+<select name="status">
+
+<option {% if lead["status"]=="New" %}selected{% endif %}>New</option>
+<option {% if lead["status"]=="Interested" %}selected{% endif %}>Interested</option>
+<option {% if lead["status"]=="Visited" %}selected{% endif %}>Visited</option>
+<option {% if lead["status"]=="Booked" %}selected{% endif %}>Booked</option>
+<option {% if lead["status"]=="Rejected" %}selected{% endif %}>Rejected</option>
+
+</select>
+
+<br><br>
+
+<button type="submit">
+
+Update Lead
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Properties</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏠 Properties</h1>
+
+<a href="/">⬅ Back to Dashboard</a>
+
+&nbsp;&nbsp;
+
+<a href="{{ url_for('add_property_route') }}">
+
+<br><br>
+
+<form action="/search" method="GET">
+
+    <input
+        type="text"
+        name="city"
+        placeholder="City">
+
+    <input
+        type="text"
+        name="type"
+        placeholder="Type">
+
+    <input
+        type="text"
+        name="bhk"
+        placeholder="BHK">
+
+    <input
+        type="number"
+        name="price"
+        placeholder="Maximum Price">
+
+    <select name="status">
+        <option value="">All</option>
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+    </select>
+
+    <button type="submit">
+        🔍 Search
+    </button>
+
+</form>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+    <th>ID</th>
+    <th>Image</th>
+    <th>Type</th>
+    <th>City</th>
+    <th>Area</th>
+    <th>BHK</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>Action</th>
+
+</tr>
+
+{% for property in properties %}
+
+<tr>
+
+    <td>{{ property.id }}</td>
+
+    <td>
+
+    {% if property.image %}
+
+        <img
+        src="{{ url_for('static', filename='uploads/' + property.image) }}"
+        width="120"
+        height="80"
+        style="border-radius:8px; object-fit:cover;">
+
+    {% else %}
+
+        No Image
+
+    {% endif %}
+
+    </td>
+
+    <td>{{ property.type }}</td>
+
+    <td>{{ property.city }}</td>
+
+    <td>{{ property.area }}</td>
+
+    <td>{{ property.bhk }}</td>
+
+    <td>₹{{ "{:,}".format(property.price) }}</td>
+
+    <td>{{ property.status }}</td>
+
+    <td>
+
+        <a href="/property/{{ property.id }}">👁 View</a>
+
+        |
+
+        <a href="/edit_property/{{ property.id }}">
+            ✏ Edit
+        </a>
+
+        |
+
+        <a href="/delete_property/{{ property.id }}"
+           onclick="return confirm('Delete this property?')">
+            🗑 Delete
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

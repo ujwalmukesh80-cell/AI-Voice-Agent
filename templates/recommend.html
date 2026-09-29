@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Best Recommendation</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏆 Best Property</h1>
+
+{% if property %}
+
+<h2>{{ property["type"] }}</h2>
+
+<p><b>City:</b> {{ property["city"] }}</p>
+
+<p><b>Area:</b> {{ property["area"] }}</p>
+
+<p><b>BHK:</b> {{ property["bhk"] }}</p>
+
+<p><b>Price:</b> ₹{{ property["price"] }}</p>
+
+<p><b>Status:</b> {{ property["status"] }}</p>
+
+{% if property["image"] %}
+
+<img
+src="{{ url_for('static', filename='uploads/' + property['image']) }}"
+width="300">
+
+{% endif %}
+
+{% else %}
+
+<h2>No matching property found.</h2>
+
+{% endif %}
+
+<br><br>
+
+<a href="/recommend">Search Again</a>
+
+</div>
+
+</body>
+
+</html>

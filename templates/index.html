@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Real Estate Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏠 AI Real Estate Dashboard</h1>
+
+    <a href="/logout">🚪 Logout</a>
+
+    <br><br>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ total_properties }}</h2>
+            <p>Total Properties</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ available }}</h2>
+            <p>Available</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ sold }}</h2>
+            <p>Sold</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_leads }}</h2>
+            <p>Total Leads</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_bookings }}</h2>
+            <p>Bookings</p>
+        </div>
+
+        <div class="card">
+            <h2>₹ {{ "{:,.0f}".format(total_value) }}</h2>
+            <p>Total Portfolio Value</p>
+        </div>
+
+        <div class="card">
+            <h2>₹ {{ "{:,.0f}".format(average_price) }}</h2>
+            <p>Average Price</p>
+        </div>
+
+    </div>
+
+    <div class="menu">
+
+        <a href="/properties">🏠 Properties</a>
+
+        <a href="/leads">👥 Leads</a>
+
+        <a href="/bookings">📅 Bookings</a>
+
+    </div>
+
+    <br><br>
+
+    <canvas id="propertyChart" width="400" height="200"></canvas>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('propertyChart');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Available', 'Sold'],
+        datasets: [{
+            data: [
+                {{ available }},
+                {{ sold }}
+            ]
+        }]
+    }
+});
+</script>
+
+</body>
+
+</html>
+
+
+
+<a href="/recommend">
+    <button>🤖 AI Property Recommendation</button>
+</a>
+<a href="/chat">
+    <button>🤖 AI Chat Assistant</button>
+</a>
+

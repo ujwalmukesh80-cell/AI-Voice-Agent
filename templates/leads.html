@@ -1,0 +1,65 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Customer Leads</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📞 Customer Leads</h1>
+
+<a href="/">⬅ Back to Dashboard</a>
+&nbsp;&nbsp;
+<a href="/add_lead">➕ Add Lead</a>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Interested Property</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+{% for lead in leads %}
+
+<tr>
+
+<td>{{ lead["id"] }}</td>
+<td>{{ lead["name"] }}</td>
+<td>{{ lead["phone"] }}</td>
+<td>{{ lead["email"] }}</td>
+<td>{{ lead["interested_property"] }}</td>
+<td>{{ lead["status"] }}</td>
+
+<td>
+<a href="/edit_lead/{{ lead['id'] }}">✏ Edit</a>
+|
+<a href="/delete_lead/{{ lead['id'] }}"
+onclick="return confirm('Delete this lead?')">
+🗑 Delete
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>
+```

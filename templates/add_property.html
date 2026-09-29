@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏠 Add Property</h1>
+
+   <form method="POST" action="{{ url_for('add_property_route') }}" enctype="multipart/form-data">
+
+        <label>Property Type</label><br>
+        <input
+            type="text"
+            name="type"
+            placeholder="Property Type"
+            required>
+
+        <br><br>
+
+        <label>City</label><br>
+        <input
+            type="text"
+            name="city"
+            placeholder="City"
+            required>
+
+        <br><br>
+
+        <label>Area</label><br>
+        <input
+            type="text"
+            name="area"
+            placeholder="Area"
+            required>
+
+        <br><br>
+
+        <label>BHK</label><br>
+        <input
+            type="text"
+            name="bhk"
+            placeholder="2BHK / 3BHK">
+
+        <br><br>
+
+        <label>Price</label><br>
+        <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            required>
+
+        <br><br>
+
+        <label>Status</label><br>
+
+        <select name="status">
+            <option value="Available">Available</option>
+            <option value="Sold">Sold</option>
+        </select>
+
+        <br><br>
+
+        <label>Property Image</label><br>
+
+        <input
+            type="file"
+            name="image"
+            accept="image/*">
+
+        <br><br>
+
+        <button type="submit">
+            ➕ Add Property
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/properties">
+        ⬅ Back to Properties
+    </a>
+
+</div>
+
+</body>
+
+</html>
