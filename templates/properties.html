@@ -1,105 +1,789 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
 
-    <title>Properties</title>
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+<title>Properties | AI Real Estate CRM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #f4f7fb;
+        color: #172033;
+        font-family: "Inter", sans-serif;
+    }
+
+    /* HEADER */
+
+    .topbar {
+        height: 72px;
+        background: white;
+        border-bottom: 1px solid #e7ebf2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 38px;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #2563eb;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    .brand h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .brand span {
+        display: block;
+        color: #8a94a6;
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    .logout {
+        text-decoration: none;
+        color: #475569;
+        border: 1px solid #e1e6ef;
+        padding: 9px 14px;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* MAIN */
+
+    .main {
+        max-width: 1450px;
+        margin: auto;
+        padding: 32px 38px 50px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .page-header p {
+        margin: 7px 0 0;
+        color: #718096;
+        font-size: 14px;
+    }
+
+    .add-button {
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 700;
+        transition: .2s;
+    }
+
+    .add-button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    /* TOOLBAR */
+
+    .toolbar {
+        background: white;
+        border: 1px solid #e7ebf2;
+        border-radius: 14px;
+        padding: 16px;
+        display: flex;
+        gap: 12px;
+        margin-bottom: 22px;
+        box-shadow: 0 3px 12px rgba(15, 23, 42, .035);
+    }
+
+    .search {
+        flex: 1;
+        position: relative;
+    }
+
+    .search input {
+        width: 100%;
+        padding: 12px 15px 12px 40px;
+        border: 1px solid #e1e6ef;
+        border-radius: 9px;
+        outline: none;
+        font-family: inherit;
+        font-size: 13px;
+    }
+
+    .search input:focus {
+        border-color: #2563eb;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 14px;
+        top: 11px;
+    }
+
+    .filter {
+        padding: 11px 14px;
+        border: 1px solid #e1e6ef;
+        border-radius: 9px;
+        background: white;
+        color: #475569;
+        font-family: inherit;
+        font-size: 13px;
+    }
+
+    /* TABLE */
+
+    .table-card {
+        background: white;
+        border: 1px solid #e7ebf2;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 3px 12px rgba(15, 23, 42, .035);
+    }
+
+    .table-header {
+        padding: 20px 22px;
+        border-bottom: 1px solid #edf0f5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table-header h3 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .property-count {
+        color: #94a3b8;
+        font-size: 12px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 950px;
+    }
+
+    th {
+        background: #f8fafc;
+        color: #64748b;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        text-align: left;
+        padding: 14px 18px;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    td {
+        padding: 16px 18px;
+        border-bottom: 1px solid #f0f2f6;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover td {
+        background: #fafcff;
+    }
+
+    /* PROPERTY IMAGE */
+
+    .property-image {
+        width: 90px;
+        height: 62px;
+        object-fit: cover;
+        border-radius: 9px;
+        display: block;
+    }
+
+    .no-image {
+        width: 90px;
+        height: 62px;
+        border-radius: 9px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        font-size: 11px;
+    }
+
+    /* PROPERTY TYPE */
+
+    .type-badge {
+        display: inline-block;
+        background: #eff6ff;
+        color: #2563eb;
+        padding: 5px 9px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .location {
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .area {
+        color: #94a3b8;
+        font-size: 11px;
+        margin-top: 3px;
+    }
+
+    .price {
+        font-weight: 800;
+        color: #172033;
+        white-space: nowrap;
+    }
+
+    /* STATUS */
+
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+    }
+
+    .available {
+        background: #ecfdf3;
+        color: #15803d;
+    }
+
+    .available .status-dot {
+        background: #22c55e;
+    }
+
+    .sold {
+        background: #fef2f2;
+        color: #dc2626;
+    }
+
+    .sold .status-dot {
+        background: #ef4444;
+    }
+
+    /* ACTIONS */
+
+    .actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .edit {
+        text-decoration: none;
+        background: #eff6ff;
+        color: #2563eb;
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .delete {
+        text-decoration: none;
+        background: #fef2f2;
+        color: #dc2626;
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    /* EMPTY */
+
+    .empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+    }
+
+    .empty-icon {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    /* BACK */
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .back-link:hover {
+        color: #2563eb;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+
+        .topbar {
+            padding: 0 16px;
+        }
+
+        .main {
+            padding: 24px 16px 40px;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .page-header h1 {
+            font-size: 23px;
+        }
+
+        .add-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .toolbar {
+            flex-direction: column;
+        }
+
+        .filter {
+            width: 100%;
+        }
+
+    }
+
+</style>
+```
 
 </head>
 
 <body>
 
-<div class="container">
+<!-- HEADER -->
 
-<h1>🏠 Property List</h1>
+<header class="topbar">
 
-<a href="/">⬅ Back to Dashboard</a>
+```
+<div class="brand">
 
-&nbsp;&nbsp;
+    <div class="brand-icon">
+        🏠
+    </div>
 
-<a href="/add_property">➕ Add Property</a>
+    <div>
 
-<br><br>
+        <h2>AI Real Estate</h2>
 
-<table border="1" cellpadding="10">
+        <span>CRM Dashboard</span>
 
-<tr>
-
-<th>ID</th>
-<th>Image</th>
-<th>Type</th>
-<th>City</th>
-<th>Area</th>
-<th>BHK</th>
-<th>Price</th>
-<th>Status</th>
-<th>Action</th>
-
-</tr>
-
-{% for property in properties %}
-
-<tr>
-
-<td>{{ property.id }}</td>
-
-<td>
-
-{% if property.image %}
-
-<img
-src="{{ url_for('static', filename='uploads/' + property.image) }}"
-width="120"
-height="80"
-style="border-radius:8px;">
-
-{% else %}
-
-No Image
-
-{% endif %}
-
-</td>
-
-<td>{{ property.type }}</td>
-
-<td>{{ property.city }}</td>
-
-<td>{{ property.area }}</td>
-
-<td>{{ property.bhk }}</td>
-
-<td>₹{{ "{:,}".format(property.price) }}</td>
-
-<td>{{ property.status }}</td>
-
-<td>
-
-<a href="/edit_property/{{ property.id }}">
-✏ Edit
-</a>
-
-|
-
-<a href="/delete_property/{{ property.id }}"
-onclick="return confirm('Delete this property?')">
-
-🗑 Delete
-
-</a>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
+    </div>
 
 </div>
+
+
+<a href="/logout" class="logout">
+    🚪 Logout
+</a>
+```
+
+</header>
+
+<!-- MAIN -->
+
+<main class="main">
+
+```
+<a href="/" class="back-link">
+    ← Back to Dashboard
+</a>
+
+
+<!-- PAGE HEADER -->
+
+<section class="page-header">
+
+    <div>
+
+        <h1>Properties</h1>
+
+        <p>
+            Manage your real-estate listings and inventory.
+        </p>
+
+    </div>
+
+
+    <a href="/add_property" class="add-button">
+        ➕ Add Property
+    </a>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section class="toolbar">
+
+    <div class="search">
+
+        <span class="search-icon">🔎</span>
+
+        <input
+            type="text"
+            id="propertySearch"
+            placeholder="Search by city, area, property type..."
+            onkeyup="filterProperties()">
+
+    </div>
+
+
+    <select
+        id="statusFilter"
+        class="filter"
+        onchange="filterProperties()">
+
+        <option value="all">All Status</option>
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+
+    </select>
+
+</section>
+
+
+<!-- PROPERTY TABLE -->
+
+<section class="table-card">
+
+
+    <div class="table-header">
+
+        <h3>Property Inventory</h3>
+
+        <span class="property-count">
+            {{ properties|length }} properties
+        </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table id="propertyTable">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Property</th>
+
+                <th>Type</th>
+
+                <th>Location</th>
+
+                <th>BHK</th>
+
+                <th>Price</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            {% for property in properties %}
+
+            <tr class="property-row">
+
+
+                <!-- ID -->
+
+                <td>
+                    <strong>#{{ property.id }}</strong>
+                </td>
+
+
+                <!-- IMAGE -->
+
+                <td>
+
+                    {% if property.image %}
+
+                    <img
+                        class="property-image"
+                        src="{{ url_for('static', filename='uploads/' + property.image) }}"
+                        alt="Property">
+
+                    {% else %}
+
+                    <div class="no-image">
+                        No Image
+                    </div>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- TYPE -->
+
+                <td>
+
+                    <span class="type-badge">
+
+                        {{ property.type }}
+
+                    </span>
+
+                </td>
+
+
+                <!-- LOCATION -->
+
+                <td>
+
+                    <div class="location">
+                        📍 {{ property.city }}
+                    </div>
+
+                    <div class="area">
+                        {{ property.area }}
+                    </div>
+
+                </td>
+
+
+                <!-- BHK -->
+
+                <td>
+
+                    {% if property.bhk %}
+
+                        🛏️ {{ property.bhk }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- PRICE -->
+
+                <td>
+
+                    <span class="price">
+                        ₹{{ "{:,}".format(property.price) }}
+                    </span>
+
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                    {% if property.status|lower == "available" %}
+
+                    <span class="status available">
+
+                        <span class="status-dot"></span>
+
+                        Available
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="status sold">
+
+                        <span class="status-dot"></span>
+
+                        {{ property.status }}
+
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- ACTIONS -->
+
+                <td>
+
+                    <div class="actions">
+
+                        <a
+                            href="/edit_property/{{ property.id }}"
+                            class="edit">
+
+                            ✏ Edit
+
+                        </a>
+
+
+                        <a
+                            href="/delete_property/{{ property.id }}"
+                            class="delete"
+                            onclick="return confirm('Delete this property?')">
+
+                            🗑 Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+
+            </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+```
+
+</main>
+
+<script>
+
+function filterProperties() {
+
+    const search =
+        document
+        .getElementById("propertySearch")
+        .value
+        .toLowerCase();
+
+    const status =
+        document
+        .getElementById("statusFilter")
+        .value
+        .toLowerCase();
+
+    const rows =
+        document.querySelectorAll(".property-row");
+
+
+    rows.forEach(function(row) {
+
+        const text =
+            row.innerText.toLowerCase();
+
+        const rowStatus =
+            row
+            .querySelector(".status")
+            ?.innerText
+            .toLowerCase() || "";
+
+
+        const matchesSearch =
+            text.includes(search);
+
+        const matchesStatus =
+            status === "all" ||
+            rowStatus.includes(status);
+
+
+        if (matchesSearch && matchesStatus) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
 
 </body>
 
