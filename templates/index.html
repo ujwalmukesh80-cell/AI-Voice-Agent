@@ -1,109 +1,845 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AI Real Estate Dashboard</title>
+    <title>AI Real Estate CRM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+        }
+
+        /* TOP BAR */
+
+        .topbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7ebf2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 38px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .brand h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            display: block;
+            font-size: 11px;
+            color: #8a94a6;
+            margin-top: 2px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #536074;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 9px 14px;
+            border: 1px solid #e1e6ef;
+            border-radius: 9px;
+            transition: .2s;
+        }
+
+        .logout:hover {
+            background: #f8fafc;
+        }
+
+        /* MAIN */
+
+        .main {
+            max-width: 1450px;
+            margin: auto;
+            padding: 32px 38px 50px;
+        }
+
+        .welcome {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 26px;
+        }
+
+        .welcome h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome p {
+            margin: 7px 0 0;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .date-box {
+            background: white;
+            border: 1px solid #e6eaf0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: #667085;
+            font-size: 13px;
+        }
+
+        /* KPI CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e7ebf2;
+            border-radius: 15px;
+            padding: 21px;
+            box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-label {
+            color: #718096;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -.5px;
+        }
+
+        .card-footer {
+            margin-top: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* CONTENT GRID */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 22px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e7ebf2;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 3px 12px rgba(15, 23, 42, 0.035);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .panel-header span {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .chart-wrapper {
+            height: 260px;
+            position: relative;
+        }
+
+        /* QUICK ACTIONS */
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action {
+            text-decoration: none;
+            border: 1px solid #e7ebf2;
+            border-radius: 12px;
+            padding: 18px;
+            color: #172033;
+            transition: .2s;
+            background: #fbfcfe;
+        }
+
+        .action:hover {
+            border-color: #2563eb;
+            background: #f8fbff;
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .action strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .action small {
+            color: #8490a3;
+            font-size: 11px;
+        }
+
+        /* AI SECTION */
+
+        .ai-panel {
+            background: linear-gradient(135deg, #172554, #1e40af);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .ai-panel h3 {
+            margin: 0 0 7px;
+            font-size: 18px;
+        }
+
+        .ai-panel p {
+            margin: 0;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .ai-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-button {
+            text-decoration: none;
+            background: white;
+            color: #1d4ed8;
+            padding: 11px 16px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: .2s;
+        }
+
+        .ai-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,.15);
+        }
+
+        /* NAVIGATION */
+
+        .nav-panel {
+            background: white;
+            border: 1px solid #e7ebf2;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #edf0f5;
+            color: #334155;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .nav-link:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #bfdbfe;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .main {
+                padding: 25px 16px 40px;
+            }
+
+            .welcome {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ai-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .ai-button {
+                text-align: center;
+            }
+
+            .nav-links {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
 
-    <h1>🏠 AI Real Estate Dashboard</h1>
+    <!-- TOP BAR -->
 
-    <a href="/logout">🚪 Logout</a>
+    <header class="topbar">
 
-    <br><br>
+        <div class="brand">
 
-    <div class="cards">
+            <div class="brand-icon">
+                🏠
+            </div>
 
-        <div class="card">
-            <h2>{{ total_properties }}</h2>
-            <p>Total Properties</p>
+            <div>
+                <h2>AI Real Estate</h2>
+                <span>CRM Dashboard</span>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h2>{{ available }}</h2>
-            <p>Available</p>
+        <div class="top-actions">
+
+            <div class="status">
+                <span class="status-dot"></span>
+                AI Agent Online
+            </div>
+
+            <a href="/logout" class="logout">
+                🚪 Logout
+            </a>
+
         </div>
 
-        <div class="card">
-            <h2>{{ sold }}</h2>
-            <p>Sold</p>
-        </div>
+    </header>
 
-        <div class="card">
-            <h2>{{ total_leads }}</h2>
-            <p>Total Leads</p>
-        </div>
 
-        <div class="card">
-            <h2>{{ total_bookings }}</h2>
-            <p>Bookings</p>
-        </div>
+    <!-- MAIN -->
 
-        <div class="card">
-            <h2>₹ {{ "{:,.0f}".format(total_value) }}</h2>
-            <p>Total Portfolio Value</p>
-        </div>
+    <main class="main">
 
-        <div class="card">
-            <h2>₹ {{ "{:,.0f}".format(average_price) }}</h2>
-            <p>Average Price</p>
-        </div>
+        <!-- WELCOME -->
 
-    </div>
+        <section class="welcome">
 
-    <div class="menu">
+            <div>
 
-        <a href="/properties">🏠 Properties</a>
+                <h1>Dashboard Overview</h1>
 
-        <a href="/leads">👥 Leads</a>
+                <p>
+                    Monitor your properties, leads, bookings and AI activity.
+                </p>
 
-        <a href="/bookings">📅 Bookings</a>
+            </div>
 
-    </div>
+            <div class="date-box">
+                📊 Live CRM Data
+            </div>
 
-    <br><br>
+        </section>
 
-    <canvas id="propertyChart" width="400" height="200"></canvas>
+
+        <!-- KPI CARDS -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Properties</span>
+                    <div class="card-icon">🏠</div>
+                </div>
+
+                <h2>{{ total_properties }}</h2>
+
+                <div class="card-footer">
+                    Total properties
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Available</span>
+                    <div class="card-icon">✓</div>
+                </div>
+
+                <h2>{{ available }}</h2>
+
+                <div class="card-footer">
+                    Properties available
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Sold</span>
+                    <div class="card-icon">💰</div>
+                </div>
+
+                <h2>{{ sold }}</h2>
+
+                <div class="card-footer">
+                    Completed sales
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Leads</span>
+                    <div class="card-icon">👥</div>
+                </div>
+
+                <h2>{{ total_leads }}</h2>
+
+                <div class="card-footer">
+                    Customer enquiries
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Bookings</span>
+                    <div class="card-icon">📅</div>
+                </div>
+
+                <h2>{{ total_bookings }}</h2>
+
+                <div class="card-footer">
+                    Site visits booked
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Portfolio Value</span>
+                    <div class="card-icon">₹</div>
+                </div>
+
+                <h2>₹ {{ "{:,.0f}".format(total_value) }}</h2>
+
+                <div class="card-footer">
+                    Total property value
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+                    <span class="card-label">Average Price</span>
+                    <div class="card-icon">📈</div>
+                </div>
+
+                <h2>₹ {{ "{:,.0f}".format(average_price) }}</h2>
+
+                <div class="card-footer">
+                    Average property price
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHART + QUICK ACTIONS -->
+
+        <section class="content-grid">
+
+
+            <!-- PROPERTY STATUS -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>Property Inventory</h3>
+
+                    <span>Current status</span>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="propertyChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>Quick Actions</h3>
+
+                    <span>Manage CRM</span>
+
+                </div>
+
+                <div class="actions">
+
+                    <a href="/properties" class="action">
+
+                        <div class="action-icon">🏠</div>
+
+                        <strong>Properties</strong>
+
+                        <small>Manage listings</small>
+
+                    </a>
+
+
+                    <a href="/leads" class="action">
+
+                        <div class="action-icon">👥</div>
+
+                        <strong>Leads</strong>
+
+                        <small>View customers</small>
+
+                    </a>
+
+
+                    <a href="/bookings" class="action">
+
+                        <div class="action-icon">📅</div>
+
+                        <strong>Bookings</strong>
+
+                        <small>Manage visits</small>
+
+                    </a>
+
+
+                    <a href="/recommend" class="action">
+
+                        <div class="action-icon">🤖</div>
+
+                        <strong>AI Recommendation</strong>
+
+                        <small>Find matching properties</small>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI PANEL -->
+
+        <section class="ai-panel">
+
+            <div>
+
+                <h3>🤖 AI Real Estate Assistant</h3>
+
+                <p>
+                    Let your AI assistant help customers find properties and answer questions.
+                </p>
+
+            </div>
+
+            <div class="ai-buttons">
+
+                <a href="/recommend" class="ai-button">
+                    🏠 AI Recommendations
+                </a>
+
+                <a href="/chat" class="ai-button">
+                    💬 Open AI Chat
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- MANAGEMENT -->
+
+        <section class="nav-panel">
+
+            <div class="panel-header">
+
+                <h3>CRM Management</h3>
+
+                <span>Navigation</span>
+
+            </div>
+
+            <div class="nav-links">
+
+                <a href="/properties" class="nav-link">
+                    🏠 Properties
+                </a>
+
+                <a href="/leads" class="nav-link">
+                    👥 Leads
+                </a>
+
+                <a href="/bookings" class="nav-link">
+                    📅 Bookings
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
+
+
+<!-- CHART.JS -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 const ctx = document.getElementById('propertyChart');
 
 new Chart(ctx, {
-    type: 'pie',
+
+    type: 'doughnut',
+
     data: {
-        labels: ['Available', 'Sold'],
+
+        labels: [
+            'Available',
+            'Sold'
+        ],
+
         datasets: [{
+
             data: [
                 {{ available }},
                 {{ sold }}
-            ]
+            ],
+
+            borderWidth: 0
+
         }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        cutout: '68%',
+
+        plugins: {
+
+            legend: {
+
+                position: 'bottom',
+
+                labels: {
+
+                    padding: 20,
+
+                    usePointStyle: true,
+
+                    font: {
+                        family: 'Inter'
+                    }
+
+                }
+
+            }
+
+        }
+
     }
+
 });
+
 </script>
 
 </body>
 
 </html>
-
-
-
-<a href="/recommend">
-    <button>🤖 AI Property Recommendation</button>
-</a>
-<a href="/chat">
-    <button>🤖 AI Chat Assistant</button>
-</a>
-
