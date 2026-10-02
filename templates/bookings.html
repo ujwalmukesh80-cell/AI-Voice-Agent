@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bookings | Real Estate CRM</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        /* Header */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .title h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .title p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-back {
+            background: white;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Stats */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e6eaf0;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* Main card */
+
+        .card {
+            background: white;
+            border: 1px solid #e6eaf0;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid #edf0f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+        }
+
+        .search {
+            width: 250px;
+            padding: 10px 13px;
+            border: 1px solid #dce2ea;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: #6366f1;
+        }
+
+        /* Table */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #64748b;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            padding: 14px 20px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 17px 20px;
+            border-top: 1px solid #edf0f4;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: #fafbff;
+        }
+
+        .property {
+            font-weight: 600;
+        }
+
+        .muted {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-booked {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .badge-confirmed {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .badge-pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 800px) {
+
+            .container {
+                padding: 18px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div class="title">
+            <h1>📅 Bookings</h1>
+            <p>Manage property site visits and customer appointments</p>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="btn btn-back">← Dashboard</a>
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-label">Total Bookings</div>
+            <div class="stat-value" id="totalBookings">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Scheduled</div>
+            <div class="stat-value" id="scheduledBookings">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Customers</div>
+            <div class="stat-value" id="customerCount">0</div>
+        </div>
+
+    </div>
+
+
+    <!-- Booking Table -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h2>Appointment Schedule</h2>
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search"
+                placeholder="Search bookings..."
+                onkeyup="filterBookings()"
+            >
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Property</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookingTable">
+
+                {% if bookings %}
+
+                    {% for booking in bookings %}
+
+                    <tr class="booking-row">
+
+                        <td>
+                            <div class="property">
+                                {{ booking.get("name", "Unknown") }}
+                            </div>
+                        </td>
+
+                        <td>
+                            {{ booking.get("phone", "—") }}
+                        </td>
+
+                        <td>
+                            <div class="property">
+                                {{ booking.get("property", booking.get("interested_property", "Property")) }}
+                            </div>
+                        </td>
+
+                        <td>
+                            {{ booking.get("date", "—") }}
+                        </td>
+
+                        <td>
+                            {{ booking.get("time", "—") }}
+                        </td>
+
+                        <td>
+
+                            {% set status = booking.get("status", "Booked") %}
+
+                            {% if status|lower == "confirmed" %}
+
+                                <span class="badge badge-confirmed">
+                                    Confirmed
+                                </span>
+
+                            {% elif status|lower == "pending" %}
+
+                                <span class="badge badge-pending">
+                                    Pending
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-booked">
+                                    {{ status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+                        <td colspan="6">
+
+                            <div class="empty">
+
+                                <div class="empty-icon">
+                                    📅
+                                </div>
+
+                                <h3>No bookings yet</h3>
+
+                                <p>
+                                    Customer site visits will appear here.
+                                </p>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const rows = document.querySelectorAll(".booking-row");
+
+    document.getElementById("totalBookings").textContent = rows.length;
+
+    document.getElementById("scheduledBookings").textContent = rows.length;
+
+    const customers = new Set();
+
+    rows.forEach(row => {
+        const name = row.querySelector("td")?.innerText.trim();
+
+        if (name) {
+            customers.add(name);
+        }
+    });
+
+    document.getElementById("customerCount").textContent = customers.size;
+
+
+    function filterBookings() {
+
+        const query =
+            document.getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+        rows.forEach(row => {
+
+            const text =
+                row.innerText.toLowerCase();
+
+            row.style.display =
+                text.includes(query)
+                    ? ""
+                    : "none";
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

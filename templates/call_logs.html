@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Call Logs</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/" class="back">← Back to Dashboard</a>
+
+    <h1>Call Logs</h1>
+
+    <div class="card">
+
+        {% if logs %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Requirement</th>
+                    <th>Property</th>
+                    <th>Date & Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for call in logs %}
+
+                <tr>
+                    <td>{{ call.name }}</td>
+                    <td>{{ call.phone }}</td>
+                    <td>{{ call.requirement }}</td>
+                    <td>{{ call.property }}</td>
+                    <td>{{ call.time }}</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+            No call logs found.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

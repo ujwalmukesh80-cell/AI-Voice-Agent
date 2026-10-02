@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Business Account</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .card {
+            width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #000;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Create your account</h1>
+
+    <div class="subtitle">
+        Start your AI real-estate receptionist
+    </div>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Business Name</label>
+        <input
+            type="text"
+            name="name"
+            placeholder="ABC Realty"
+            required
+        >
+
+        <label>Email</label>
+        <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+        >
+
+        <label>Phone</label>
+        <input
+            type="text"
+            name="phone"
+            placeholder="9876543210"
+        >
+
+        <label>Password</label>
+        <input
+            type="password"
+            name="password"
+            placeholder="Minimum 8 characters"
+            required
+        >
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <div class="login">
+        Already have an account?
+        <a href="/login">Login</a>
+    </div>
+
+</div>
+
+</body>
+</html>

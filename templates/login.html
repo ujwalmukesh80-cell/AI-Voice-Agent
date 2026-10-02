@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Admin Login</title>
+    <title>Business Login</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -14,43 +14,48 @@
 
 <div class="container">
 
-<h1>🔐 Admin Login</h1>
+    <h1>🔐 Business Login</h1>
 
-<form method="POST">
+    <p>Login to your AI Real Estate CRM</p>
 
-<input
-type="text"
-name="username"
-placeholder="Username"
-required>
+    <form method="POST">
 
-<br><br>
+        <input
+            type="email"
+            name="email"
+            placeholder="Business Email"
+            required
+        >
 
-<input
-type="password"
-name="password"
-placeholder="Password"
-required>
+        <br><br>
 
-<br><br>
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+        >
 
-<button>
+        <br><br>
 
-Login
+        <button type="submit">
+            Login
+        </button>
 
-</button>
+    </form>
 
-</form>
+    {% if error %}
 
-{% if error %}
+        <p style="color:red">
+            {{ error }}
+        </p>
 
-<p style="color:red">
+    {% endif %}
 
-{{ error }}
-
-</p>
-
-{% endif %}
+    <p>
+        Don't have an account?
+        <a href="/register">Create Business Account</a>
+    </p>
 
 </div>
 

@@ -690,26 +690,33 @@
 
                     <div class="actions">
 
-                        <a
-                            href="/edit_property/{{ property.id }}"
-                            class="edit">
+    <a
+        href="/property/{{ property.id }}"
+        class="interest"
+        target="_blank">
 
-                            ✏ Edit
+        🤖 Interested
 
-                        </a>
+    </a>
 
+    <a
+        href="/edit_property/{{ property.id }}"
+        class="edit">
 
-                        <a
-                            href="/delete_property/{{ property.id }}"
-                            class="delete"
-                            onclick="return confirm('Delete this property?')">
+        ✏ Edit
 
-                            🗑 Delete
+    </a>
 
-                        </a>
+    <a
+        href="/delete_property/{{ property.id }}"
+        class="delete"
+        onclick="return confirm('Delete this property?')">
 
-                    </div>
+        🗑 Delete
 
+    </a>
+
+</div>
                 </td>
 
 
@@ -725,6 +732,19 @@
     </div>
 
 </section>
+.interest {
+    text-decoration: none;
+    background: #ecfdf5;
+    color: #059669;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.interest:hover {
+    background: #d1fae5;
+}
 ```
 
 </main>

@@ -1,23 +1,22 @@
-import json
-import os
+import lead_db
 
-FILE = "leads.json"
 
-def save_lead(name, phone, requirement):
+def save_lead(name, phone, requirement, business_id):
 
-    if os.path.exists(FILE):
-        with open(FILE, "r") as f:
-            leads = json.load(f)
-    else:
-        leads = []
+    if not business_id:
+        raise ValueError("No business ID provided")
 
-    leads.append({
+    lead = {
         "name": name,
         "phone": phone,
-        "requirement": requirement
-    })
+        "email": "",
+        "interested_property": requirement,
+        "status": "New"
+    }
 
-    with open(FILE, "w") as f:
-        json.dump(leads, f, indent=4)
+    lead_db.add_lead(
+        lead,
+        business_id
+    )
 
     return True

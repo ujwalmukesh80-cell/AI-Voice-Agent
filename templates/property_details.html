@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ property_data["type"] }} - {{ property_data["area"] }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #222;
+        }
+
+        .property-info {
+            margin: 25px 0;
+        }
+
+        .property-info p {
+            font-size: 18px;
+            margin: 12px 0;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #16803c;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .callback {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f0f7ff;
+            border-radius: 12px;
+        }
+
+        .callback h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1769e0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1255b5;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #1769e0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        {{ property_data["type"] }}
+    </h1>
+
+    <div class="property-info">
+
+        <p>
+            <strong>City:</strong>
+            {{ property_data["city"] }}
+        </p>
+
+        <p>
+            <strong>Area:</strong>
+            {{ property_data["area"] }}
+        </p>
+
+        <p>
+            <strong>BHK:</strong>
+            {{ property_data["bhk"] }}
+        </p>
+
+        <p class="price">
+            ₹{{ property_data["price"] }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span class="status">
+                {{ property_data["status"] }}
+            </span>
+        </p>
+
+    </div>
+
+    <div class="callback">
+
+        <h2>📞 Interested in this property?</h2>
+
+        <p>
+            Enter your mobile number and our AI assistant
+            will call you automatically.
+        </p>
+
+        <form action="/request_callback" method="POST">
+
+            <input
+                type="hidden"
+                name="property_id"
+                value="{{ property_data['id'] }}"
+            >
+
+            <input
+                type="tel"
+                name="phone"
+                placeholder="Enter your 10 digit mobile number"
+                required
+                maxlength="10"
+            >
+
+            <button type="submit">
+                🤖 Get an AI Call Now
+            </button>
+
+        </form>
+
+    </div>
+
+    <a href="/" class="back">
+        ← Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>

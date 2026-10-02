@@ -1,20 +1,26 @@
-import json
-
-def load_properties():
-    with open("properties.json", "r") as file:
-        return json.load(file)
+import property_db
 
 
-def search_property(query):
-    properties = load_properties()
+def search_property(query, business_id):
+    if not business_id:
+        return None
+
+    properties = property_db.get_all_properties(business_id)
+
     query = query.lower()
 
     for p in properties:
+
+        city = str(p["city"] or "").lower()
+        area = str(p["area"] or "").lower()
+        property_type = str(p["type"] or "").lower()
+        bhk = str(p["bhk"] or "").lower()
+
         if (
-            p["city"].lower() in query
-            or p["area"].lower() in query
-            or p["type"].lower() in query
-            or (p["bhk"] and p["bhk"].lower() in query)
+            city in query
+            or area in query
+            or property_type in query
+            or (bhk and bhk in query)
         ):
             return p
 
@@ -22,6 +28,7 @@ def search_property(query):
 
 
 def format_property(p):
+
     return f"""I found a property for you.
 
 Property Type: {p['type']}

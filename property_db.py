@@ -1,27 +1,44 @@
 from db import get_connection
 
 
-def get_all_properties():
+def _business_id():
+    try:
+        from flask import session
+        return session.get("business_id")
+    except Exception:
+        return None
+
+
+def get_all_properties(business_id=None):
+    business_id = business_id or _business_id()
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM properties")
+    cursor.execute(
+        "SELECT * FROM properties WHERE business_id=?",
+        (business_id,)
+    )
 
     properties = cursor.fetchall()
-
     conn.close()
 
     return properties
 
 
-def add_property(property_data):
+def add_property(property_data, business_id=None):
+    business_id = business_id or _business_id()
+
+    if not business_id:
+        raise ValueError("No business is logged in")
+
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
         INSERT INTO properties
-        (type, city, area, bhk, price, status, image)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        (type, city, area, bhk, price, status, image, business_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         property_data["type"],
         property_data["city"],
@@ -29,50 +46,50 @@ def add_property(property_data):
         property_data["bhk"],
         property_data["price"],
         property_data["status"],
-        property_data["image"]
+        property_data["image"],
+        business_id
     ))
 
     conn.commit()
     conn.close()
 
 
-def delete_property(property_id):
+def delete_property(property_id, business_id=None):
+    business_id = business_id or _business_id()
 
     conn = get_connection()
-
     cursor = conn.cursor()
 
     cursor.execute(
-        "DELETE FROM properties WHERE id=?",
-        (property_id,)
+        "DELETE FROM properties WHERE id=? AND business_id=?",
+        (property_id, business_id)
     )
 
     conn.commit()
     conn.close()
 
 
-def get_property(property_id):
+def get_property(property_id, business_id=None):
+    business_id = business_id or _business_id()
 
     conn = get_connection()
-
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM properties WHERE id=?",
-        (property_id,)
+        "SELECT * FROM properties WHERE id=? AND business_id=?",
+        (property_id, business_id)
     )
 
     property_data = cursor.fetchone()
-
     conn.close()
 
     return property_data
 
 
-def update_property(property_id, property_data):
+def update_property(property_id, property_data, business_id=None):
+    business_id = business_id or _business_id()
 
     conn = get_connection()
-
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -85,7 +102,7 @@ def update_property(property_id, property_data):
             price=?,
             status=?,
             image=?
-        WHERE id=?
+        WHERE id=? AND business_id=?
     """, (
         property_data["type"],
         property_data["city"],
@@ -94,8 +111,23 @@ def update_property(property_id, property_data):
         property_data["price"],
         property_data["status"],
         property_data["image"],
-        property_id
+        property_id,
+        business_id
     ))
 
     conn.commit()
     conn.close()
+def get_property_public(property_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM properties WHERE id=?",
+        (property_id,)
+    )
+
+    property_data = cursor.fetchone()
+
+    conn.close()
+
+    return property_data
